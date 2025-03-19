@@ -74,7 +74,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    @JvmStatic
     fun provideNewsDatabase(
         application: Application
     ): NewsDatabase {
@@ -89,7 +88,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    @JvmStatic
     fun provideNewsDao(
         newsDatabase: NewsDatabase
     ): NewsDao = newsDatabase.newsDao
