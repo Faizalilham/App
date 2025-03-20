@@ -62,11 +62,32 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run espresso test
+      - name: Start Emulator and Wait
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
-          script: ./gradlew connectedCheck
+            api-level: 29
+            target: google_apis
+            arch: x86_64
+            profile: pixel_3a
+            script: echo "Emulator started"
+
+      - name: Wait for Emulator to Boot
+        run: |
+            max_attempts=10
+            attempt=0
+            until adb shell getprop sys.boot_completed | grep -m 1 "1"; do
+              attempt=$((attempt + 1))
+              if [ $attempt -ge $max_attempts ]; then
+                echo "Emulator failed to start"
+                exit 1
+              fi
+              echo "Waiting for emulator to boot..."
+              sleep 10
+            done
+            echo "Emulator booted"
+
+      - name: Run espresso test
+        run: ./gradlew connectedCheck
 
       - name: Upload instrumentation-test report
         uses: actions/upload-artifact@v4
