@@ -54,7 +54,7 @@ jobs:
 
   instrumentation-test:
     needs: [unit-test]
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -71,7 +71,8 @@ jobs:
             profile: pixel_3a
             disable-animations: true
             headless: true
-            script: echo "Emulator started"
+            script: "JAVA_HOME=$JAVA_HOME_11_X64 && ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=\
+            org.mozilla.fenix.ui.NavigationToolbarTest#visitURLTest"
 
       - name: Wait for Emulator to Boot
         run: |
