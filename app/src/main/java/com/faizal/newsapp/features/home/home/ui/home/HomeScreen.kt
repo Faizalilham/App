@@ -17,6 +17,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -26,7 +27,6 @@ import com.faizal.newsapp.R
 import com.faizal.newsapp.UIKit.SearchBar
 import com.faizal.newsapp.common.model.Article
 import com.faizal.newsapp.features.home.home.ui.home.components.ArticlesList
-import com.faizal.newsapp.nvgraph.Route
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
 
 
@@ -69,6 +69,7 @@ fun HomeScreen(
         SearchBar(
             modifier = Modifier
                 .padding(horizontal = MediumPadding1)
+                .testTag("SearchBar")
                 .fillMaxWidth(),
             text = "",
             readOnly = true,

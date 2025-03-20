@@ -51,6 +51,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    hilt {
+        enableAggregatingTask = true
+    }
 }
 
 dependencies {
@@ -111,4 +114,22 @@ dependencies {
 //    kapt("androidx.room:room-compiler:2.5.2")
     implementation(libs.androidx.room.ktx)
     kapt(libs.room.compiler)
+
+    // Unit Testing
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.paging.common)
+    testImplementation(libs.truth)
+    testImplementation(libs.turbine)
+    testImplementation(libs.core.testing)
+
+    // Hilt Testing
+    androidTestImplementation(libs.hilt.testing)
+    kaptAndroidTest(libs.hilt.compiler)
+
+    // UI Testing
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.androidx.junit)
+
 }

@@ -21,6 +21,14 @@ pagingCompose = "3.2.0-rc01"
 pagingRuntime = "3.1.1"
 retrofit = "2.9.0"
 roomRuntimeVersion = "2.6.0"
+mockk = "1.13.4"
+coroutinesTest = "1.6.4"
+pagingCommon = "3.2.0"
+truth = "1.1.3"
+turbine = "1.0.0"
+coreTesting = "2.1.0"
+hiltTesting = "2.44"
+espresso = "3.5.1"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -53,6 +61,14 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntimeVersion" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+paging-common = { module = "androidx.paging:paging-common", version.ref = "pagingCommon" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltTesting" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

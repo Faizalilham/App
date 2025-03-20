@@ -59,6 +59,7 @@ fun SearchBar(
                 .fillMaxWidth()
                 .searchBar(),
             value = text,
+
             onValueChange = onValueChange,
             readOnly = readOnly,
             leadingIcon = {
