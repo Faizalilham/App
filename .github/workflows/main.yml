@@ -62,33 +62,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Start Emulator and Wait
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-            api-level: 28
-            target: google_apis
-            arch: x86_64
-            profile: pixel_3a
-            disable-animations: true
-            headless: true
-            script: "JAVA_HOME=$JAVA_HOME_11_X64 && ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=\
-            org.mozilla.fenix.ui.NavigationToolbarTest#visitURLTest"
-
-      - name: Wait for Emulator to Boot
-        run: |
-            max_attempts=10
-            attempt=0
-            until adb shell getprop sys.boot_completed | grep -m 1 "1"; do
-              attempt=$((attempt + 1))
-              if [ $attempt -ge $max_attempts ]; then
-                echo "Emulator failed to start"
-                exit 1
-              fi
-              echo "Waiting for emulator to boot..."
-              sleep 10
-            done
-            echo "Emulator booted"
-
       - name: Run espresso test
         run: ./gradlew connectedCheck
 
