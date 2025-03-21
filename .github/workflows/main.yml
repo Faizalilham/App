@@ -54,22 +54,22 @@ jobs:
 
   instrumentation-test:
     needs: [unit-test]
-    runs-on: macos-11
+    runs-on: ubuntu-20.04
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Run espresso test
-        run: ./gradlew connectedCheck
-
-      - name: Upload instrumentation-test report
-        uses: actions/upload-artifact@v4
+      - uses: actions/checkout@v2
+      - name: Build app
+        run: ./gradlew assembleDebug assembleAndroidTest
+      - name: Run tests
+        uses: emulator-wtf/run-tests@v0
         with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected
+          app: app/build/outputs/apk/debug/app-debug.apk
+          test: app/build/outputs/apk/androidTest/app-debug-androidTest.apk
+          outputs-dir: build/test-results
+      - name: Publish test report
+        uses: mikepenz/action-junit-report@v2
+        if: always()
+        with:
+          report_paths: 'build/test-results/**/*.xml'
 
   package:
     needs: [instrumentation-test]
