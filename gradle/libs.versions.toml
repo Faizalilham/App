@@ -29,6 +29,7 @@ turbine = "1.0.0"
 coreTesting = "2.1.0"
 hiltTesting = "2.44"
 espresso = "3.5.1"
+sonarqube = "2.7.1"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -74,4 +75,5 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 

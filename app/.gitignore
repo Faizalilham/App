@@ -1,1 +1,4 @@
 /build
+deploy_staging.sh
+service-json.json
+play_config.json.b64
