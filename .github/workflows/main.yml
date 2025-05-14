@@ -135,8 +135,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.2
-          bundler-cache: true
+          ruby-version: 2.6
+
+      - name: Install bundle
+        run: |
+            bundle config path vendor/bundle
+            bundle install --jobs 4 --retry 3  
 
       - name: Create Google Play Service Account Key file
         uses: timheuer/base64-to-file@v1
