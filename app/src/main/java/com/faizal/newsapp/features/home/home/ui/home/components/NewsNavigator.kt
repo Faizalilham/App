@@ -28,6 +28,7 @@ import com.faizal.newsapp.features.home.home.ui.detail.DetailScreen
 import com.faizal.newsapp.features.home.home.ui.home.HomeScreen
 import com.faizal.newsapp.features.home.home.viewmodel.detail.DetailViewModel
 import com.faizal.newsapp.features.home.home.viewmodel.home.HomeViewModel
+import com.faizal.newsapp.features.home.profile.ui.ProfileScreen
 import com.faizal.newsapp.features.home.search.ui.SearchScreen
 import com.faizal.newsapp.features.home.search.viewmodel.SearchViewModel
 import com.faizal.newsapp.nvgraph.Route
@@ -41,6 +42,7 @@ fun NewsNavigator() {
             BottomNavigationItem(icon = R.drawable.ic_home, title = "Home"),
             BottomNavigationItem(icon = R.drawable.ic_search, title = "Search"),
             BottomNavigationItem(icon = R.drawable.ic_bookmark, title = "Bookmark"),
+            BottomNavigationItem(icon = R.drawable.ic_us, title = "About Us"),
         )
     }
 
@@ -53,6 +55,7 @@ fun NewsNavigator() {
         Route.HomeScreen.route -> 0
         Route.SearchScreen.route -> 1
         Route.BookmarkScreen.route -> 2
+        Route.ProfileScreen.route -> 3
         else -> 0
     }
 
@@ -75,6 +78,10 @@ fun NewsNavigator() {
                     2 -> navigateToTab(
                         navController = navController,
                         route = Route.BookmarkScreen.route
+                    )
+                    3 -> navigateToTab(
+                        navController = navController,
+                        route = Route.ProfileScreen.route
                     )
                 }
             }
@@ -143,6 +150,11 @@ fun NewsNavigator() {
                         )
                     }
                 )
+            }
+
+            composable(route = Route.ProfileScreen.route) {
+                OnBackClickStateSaver(navController = navController)
+                ProfileScreen()
             }
         }
     }

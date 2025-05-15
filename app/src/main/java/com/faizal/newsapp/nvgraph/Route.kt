@@ -13,6 +13,7 @@ sealed class Route(
     data object SearchScreen : Route(route = "searchScreen")
 
     data object BookmarkScreen : Route(route = "bookMarkScreen")
+    data object ProfileScreen : Route(route = "profileScreen")
 
     data object DetailsScreen : Route(route = "detailsScreen")
 
