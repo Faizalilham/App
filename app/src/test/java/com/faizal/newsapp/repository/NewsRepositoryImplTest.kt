@@ -2,11 +2,11 @@ package com.faizal.newsapp.repository
 
 
 import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.common.model.Source
-import com.faizal.newsapp.common.wrapped.ListResponse
+import com.faizal.newsapp.domain.model.Source
+import com.faizal.newsapp.data.remote.wrapped.ListResponse
 import com.faizal.newsapp.features.home.home.data.repository.NewsRepositoryImpl
-import com.faizal.newsapp.features.home.home.data.service.NewsApi
-import com.faizal.newsapp.features.home.home.domain.repository.NewsRepository
+import com.faizal.newsapp.data.remote.NewsApi
+import com.faizal.newsapp.domain.repository.NewsRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

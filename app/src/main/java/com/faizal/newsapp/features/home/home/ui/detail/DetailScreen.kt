@@ -23,22 +23,22 @@ import androidx.compose.ui.res.colorResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.faizal.newsapp.R
-import com.faizal.newsapp.common.model.Article
 import com.faizal.newsapp.common.utils.UIComponent
+import com.faizal.newsapp.domain.model.Article
 import com.faizal.newsapp.features.home.home.ui.detail.components.DetailTopBar
 import com.faizal.newsapp.features.home.home.viewmodel.detail.DetailEvent
-import com.faizal.newsapp.ui.theme.Dimens.ArticleImageDetailHeight
+import com.faizal.newsapp.ui.theme.Dimens.ArticleImageHeight
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
+import androidx.core.net.toUri
 
 @Composable
 fun DetailScreen(
     article: Article,
     event: (DetailEvent) -> Unit,
     sideEffect: UIComponent?,
-    navigateUp: () -> Unit
-
+    navigateUp: () -> Unit,
+    isFavorite : Boolean = false
 ) {
-
     val context = LocalContext.current
 
     LaunchedEffect(key1 = sideEffect) {
@@ -58,11 +58,10 @@ fun DetailScreen(
             .fillMaxSize()
             .statusBarsPadding()
     ) {
-
         DetailTopBar(
             onBrowsingClick = {
                 Intent(Intent.ACTION_VIEW).also {
-                    it.data = Uri.parse(article.url)
+                    it.data = article.url.toUri()
                     if (it.resolveActivity(context.packageManager) != null) {
                         context.startActivity(it)
                     }
@@ -70,16 +69,18 @@ fun DetailScreen(
             },
             onShareClick = {
                 Intent(Intent.ACTION_SEND).also {
+                    it.putExtra(Intent.EXTRA_TEXT, article.url)
                     it.type = "text/plain"
                     if (it.resolveActivity(context.packageManager) != null) {
                         context.startActivity(it)
                     }
                 }
             },
-            onBookmarkClick = {
+            onBookMarkClick = {
                 event(DetailEvent.UpsertDeleteArticle(article))
             },
-            onBackClick = { navigateUp() }
+            onBackClick = navigateUp,
+            isFavorite = isFavorite
         )
 
         LazyColumn(
@@ -90,20 +91,18 @@ fun DetailScreen(
                 top = MediumPadding1
             )
         ) {
-
             item {
                 AsyncImage(
-                    model = ImageRequest.Builder(context).data(article.urlToImage).build(),
+                    model = ImageRequest.Builder(context = context).data(article.urlToImage)
+                        .build(),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(ArticleImageDetailHeight)
+                        .height(ArticleImageHeight)
                         .clip(MaterialTheme.shapes.medium),
                     contentScale = ContentScale.Crop
                 )
-
                 Spacer(modifier = Modifier.height(MediumPadding1))
-
                 Text(
                     text = article.title,
                     style = MaterialTheme.typography.displaySmall,
@@ -111,7 +110,6 @@ fun DetailScreen(
                         id = R.color.text_title
                     )
                 )
-
                 Text(
                     text = article.content,
                     style = MaterialTheme.typography.bodyMedium,
@@ -121,7 +119,5 @@ fun DetailScreen(
                 )
             }
         }
-
     }
-
 }

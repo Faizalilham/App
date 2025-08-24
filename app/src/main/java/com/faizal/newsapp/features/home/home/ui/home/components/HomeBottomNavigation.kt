@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.faizal.newsapp.R
-import com.faizal.newsapp.features.home.home.model.BottomNavigationItem
+import com.faizal.newsapp.domain.model.BottomNavigationItem
 import com.faizal.newsapp.ui.theme.Dimens.ExtraSmallPadding2
 import com.faizal.newsapp.ui.theme.Dimens.IconSize
 import com.faizal.newsapp.ui.theme.NewsAppTheme
@@ -28,29 +28,28 @@ import com.faizal.newsapp.ui.theme.NewsAppTheme
 
 @Composable
 fun HomeBottomNavigation(
-    items : List<BottomNavigationItem>,
-    selectedItem : Int,
-    onClickItem : (Int) -> Unit
+    items: List<BottomNavigationItem>,
+    selectedItem: Int,
+    onItemClick: (Int) -> Unit
 ) {
-
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
         containerColor = MaterialTheme.colorScheme.background,
         tonalElevation = 10.dp
     ) {
         items.forEachIndexed { index, item ->
-            NavigationBarItem(selected = index == selectedItem,
-                onClick = {
-                    onClickItem(index)
-                }, icon = {
+            NavigationBarItem(
+                selected = index == selectedItem,
+                onClick = { onItemClick(index) },
+                icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
                         Icon(
                             painter = painterResource(id = item.icon),
                             contentDescription = null,
-                            modifier = Modifier.size(IconSize)
+                            modifier = Modifier.size(IconSize),
                         )
                         Spacer(modifier = Modifier.height(ExtraSmallPadding2))
-                        Text(text = item.title, style = MaterialTheme.typography.labelSmall)
+                        Text(text = item.text, style = MaterialTheme.typography.labelSmall)
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
@@ -59,9 +58,9 @@ fun HomeBottomNavigation(
                     unselectedIconColor = colorResource(id = R.color.body),
                     unselectedTextColor = colorResource(id = R.color.body),
                     indicatorColor = MaterialTheme.colorScheme.background
-                ),)
+                ),
+            )
         }
-
     }
 }
 
@@ -71,9 +70,9 @@ fun HomeBottomNavigation(
 fun NewsBottomNavigationPreview() {
     NewsAppTheme(dynamicColor = false) {
         HomeBottomNavigation(items = listOf(
-            BottomNavigationItem(icon = R.drawable.ic_home, title = "Home"),
-            BottomNavigationItem(icon = R.drawable.ic_search, title = "Search"),
-            BottomNavigationItem(icon = R.drawable.ic_bookmark, title = "Bookmark"),
-        ), selectedItem = 0, onClickItem = {})
+            BottomNavigationItem(icon = R.drawable.ic_home, text = "Home"),
+            BottomNavigationItem(icon = R.drawable.ic_bookmark, text = "Bookmark"),
+            BottomNavigationItem(icon = R.drawable.ic_us, text = "Profile"),
+        ), selectedItem = 0, onItemClick = {})
     }
 }

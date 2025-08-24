@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.faizal.newsapp.datastore.domain.AppEntryUseCases
+import com.faizal.newsapp.domain.usecases.datastore.ReadAppEntry
 import com.faizal.newsapp.nvgraph.Route
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val appEntryUseCases: AppEntryUseCases
+    private val readAppEntry: ReadAppEntry
 ): ViewModel() {
 
     private val _splashCondition = mutableStateOf(true)
@@ -24,13 +24,14 @@ class SplashViewModel @Inject constructor(
     val startDestination: State<String> = _startDestination
 
     init {
-        appEntryUseCases.readAppEntry().onEach { shouldStartFromHomeScreen ->
+        readAppEntry().onEach { shouldStartFromHomeScreen ->
             if(shouldStartFromHomeScreen){
                 _startDestination.value = Route.NewsNavigation.route
             }else{
-                _startDestination.value = Route.AppStartNavigation.route
+                _startDestination.value = Route.NewsNavigation.route
+//                _startDestination.value = Route.AppStartNavigation.route // ngga dipake buat test
             }
-            delay(300)
+            delay(400)
             _splashCondition.value = false
         }.launchIn(viewModelScope)
     }

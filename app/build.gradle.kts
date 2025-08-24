@@ -15,8 +15,8 @@ android {
         applicationId = "com.faizal.newsapp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 4
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -112,6 +112,7 @@ dependencies {
     //Room
     implementation(libs.androidx.room.runtime)
 //    kapt("androidx.room:room-compiler:2.5.2")
+    implementation(libs.androidx.room.paging)
     implementation(libs.androidx.room.ktx)
     kapt(libs.room.compiler)
 

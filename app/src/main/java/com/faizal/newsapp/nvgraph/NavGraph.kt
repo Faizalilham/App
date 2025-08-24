@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.faizal.newsapp.features.home.home.ui.home.components.NewsNavigator
 import com.faizal.newsapp.features.onboarding.ui.OnBoardingScreen
 import com.faizal.newsapp.features.onboarding.viewmodel.OnBoardingViewModel
 
@@ -34,7 +33,6 @@ fun NavGraph(
             composable(route = Route.NewsNavigatorScreen.route) {
                NewsNavigator()
             }
-
         }
     }
 }

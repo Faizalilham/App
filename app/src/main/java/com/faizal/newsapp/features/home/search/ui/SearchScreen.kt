@@ -2,7 +2,6 @@ package com.faizal.newsapp.features.home.search.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -10,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.faizal.newsapp.UIKit.SearchBar
-import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.features.home.search.ui.components.ArticlesListSearch
+import com.faizal.newsapp.domain.model.Article
+import com.faizal.newsapp.features.common.ArticlesList
 import com.faizal.newsapp.features.home.search.viewmodel.SearchEvent
 import com.faizal.newsapp.features.home.search.viewmodel.SearchState
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
@@ -20,14 +19,13 @@ import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
 fun SearchScreen(
     state: SearchState,
     event:(SearchEvent) -> Unit,
-    navigateToDetails : (Article) -> Unit
+    navigateToDetails:(Article) -> Unit
 ) {
 
     Column(
         modifier = Modifier
             .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
             .statusBarsPadding()
-            .fillMaxSize()
     ) {
         SearchBar(
             text = state.searchQuery,
@@ -40,7 +38,7 @@ fun SearchScreen(
         Spacer(modifier = Modifier.height(MediumPadding1))
         state.articles?.let {
             val articles = it.collectAsLazyPagingItems()
-            ArticlesListSearch(
+            ArticlesList(
                 articles = articles,
                 onClick = navigateToDetails
             )

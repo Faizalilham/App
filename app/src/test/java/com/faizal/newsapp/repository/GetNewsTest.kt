@@ -2,9 +2,9 @@ package com.faizal.newsapp.repository
 
 import androidx.paging.PagingData
 import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.common.model.Source
-import com.faizal.newsapp.features.home.home.domain.repository.NewsRepository
-import com.faizal.newsapp.features.home.home.domain.usecase.GetNews
+import com.faizal.newsapp.domain.model.Source
+import com.faizal.newsapp.domain.repository.NewsRepository
+import com.faizal.newsapp.domain.usecases.news.GetNews
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

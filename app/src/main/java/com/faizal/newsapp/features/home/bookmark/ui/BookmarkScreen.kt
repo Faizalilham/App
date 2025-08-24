@@ -2,7 +2,6 @@ package com.faizal.newsapp.features.home.bookmark.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,8 +14,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.faizal.newsapp.R
 import com.faizal.newsapp.features.home.bookmark.viewmodel.BookmarkState
-import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.features.home.home.ui.home.components.ArticlesList
+import com.faizal.newsapp.domain.model.Article
+import com.faizal.newsapp.features.common.ArticlesList
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
 
 @Composable

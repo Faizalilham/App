@@ -1,30 +1,17 @@
 package com.faizal.newsapp.di
 
-
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import com.faizal.newsapp.common.database.NewsDao
-import com.faizal.newsapp.common.database.NewsDatabase
-import com.faizal.newsapp.common.database.NewsTypeConvertor
-import com.faizal.newsapp.datastore.domain.LocalUserManager
-import com.faizal.newsapp.datastore.data.LocalUserManagerImpl
-import com.faizal.newsapp.datastore.domain.AppEntryUseCases
-import com.faizal.newsapp.datastore.domain.ReadAppEntry
-import com.faizal.newsapp.datastore.domain.SaveAppEntry
-import com.faizal.newsapp.features.home.home.data.repository.NewsRepositoryImpl
-import com.faizal.newsapp.features.home.home.data.service.NewsApi
-import com.faizal.newsapp.features.home.home.domain.repository.NewsRepository
-import com.faizal.newsapp.features.home.home.domain.usecase.GetNews
-import com.faizal.newsapp.features.home.home.domain.usecase.NewsUseCase
-import com.faizal.newsapp.common.utils.Constant
-import com.faizal.newsapp.features.home.search.data.repository.SearchRepositoryImpl
-import com.faizal.newsapp.features.home.search.data.service.SearchService
-import com.faizal.newsapp.features.home.search.domain.repository.SearchRepository
-import com.faizal.newsapp.features.home.search.domain.usecase.SearchNews
-import com.faizal.newsapp.features.home.search.domain.usecase.SearchUseCase
+import com.faizal.newsapp.common.utils.Constant.BASE_URL
+import com.faizal.newsapp.common.utils.NetworkConnectionManager
+import com.faizal.newsapp.data.local.NewsDao
+import com.faizal.newsapp.data.local.NewsDatabase
+import com.faizal.newsapp.data.remote.NewsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,43 +21,25 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    @Singleton
-    fun provideLocalUserManger(
-        application: Application
-    ): LocalUserManager = LocalUserManagerImpl(context = application)
-
 
     @Provides
     @Singleton
-    fun provideAppEntryUseCases(
-        localUserManger: LocalUserManager
-    ): AppEntryUseCases = AppEntryUseCases(
-        readAppEntry = ReadAppEntry(localUserManger),
-        saveAppEntry = SaveAppEntry(localUserManger)
-    )
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
+    fun provideApiInstance(): NewsApi {
+        return Retrofit
+            .Builder()
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(NewsApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideNewsApi(retrofit: Retrofit): NewsApi {
-        return retrofit.create(NewsApi::class.java)
+    fun provideNetworkConnectionManager(
+        @ApplicationContext context: Context
+    ): NetworkConnectionManager {
+        return NetworkConnectionManager(context)
     }
-
-    @Provides
-    @Singleton
-    fun provideSearchService(retrofit: Retrofit): SearchService {
-        return retrofit.create(SearchService::class.java)
-    }
-
 
     @Provides
     @Singleton
@@ -81,8 +50,7 @@ object AppModule {
             context = application,
             klass = NewsDatabase::class.java,
             name = "news_db"
-        ).addTypeConverter(NewsTypeConvertor())
-            .fallbackToDestructiveMigration()
+        ).fallbackToDestructiveMigration()
             .build()
     }
 

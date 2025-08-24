@@ -5,47 +5,53 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.faizal.newsapp.common.model.Article
 import com.faizal.newsapp.common.utils.UIComponent
-import com.faizal.newsapp.features.home.bookmark.domain.usecase.BookmarkUseCase
+import com.faizal.newsapp.domain.model.Article
+import com.faizal.newsapp.domain.usecases.news.IsArticleFavorite
+import com.faizal.newsapp.domain.usecases.news.SetFavoriteArticles
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val newsUseCases: BookmarkUseCase
+    private val setFavoriteArticle: SetFavoriteArticles,
+    private val isArticleFavorite: IsArticleFavorite
 ) : ViewModel() {
 
     var sideEffect by mutableStateOf<UIComponent?>(null)
         private set
 
+    var state by mutableStateOf(DetailState(isFavorite = false))
+        private set
+
     fun onEvent(event: DetailEvent) {
         when (event) {
             is DetailEvent.UpsertDeleteArticle -> {
-                viewModelScope.launch {
-                    val article = newsUseCases.getArticle(url = event.article.url)
-                    if (article == null){
-                        upsertArticle(article = event.article)
-                    }else{
-                        deleteArticle(article = event.article)
-                    }
-                }
+                toggleFavorite(article = event.article)
             }
-            is DetailEvent.RemoveSideEffect ->{
+            is DetailEvent.RemoveSideEffect -> {
                 sideEffect = null
             }
         }
     }
 
-    private suspend fun deleteArticle(article: Article) {
-        newsUseCases.deleteArticle(article = article)
-        sideEffect = UIComponent.Toast("Article deleted")
+    private fun toggleFavorite(article: Article) {
+        viewModelScope.launch {
+            val currentStatus = isArticleFavorite(article.url)
+            setFavoriteArticle(article.url, !currentStatus)
+            state = state.copy(isFavorite = !currentStatus)
+            sideEffect = UIComponent.Toast(
+                if (!currentStatus) "Article saved" else "Removed from favorites"
+            )
+        }
     }
 
-    private suspend fun upsertArticle(article: Article) {
-        newsUseCases.upsertArticle(article = article)
-        sideEffect = UIComponent.Toast("Article Inserted")
+    fun loadFavoriteStatus(article: Article) {
+        viewModelScope.launch {
+            val currentStatus = isArticleFavorite(article.url)
+            state = state.copy(isFavorite = currentStatus)
+        }
     }
 
 }

@@ -2,9 +2,9 @@ package com.faizal.newsapp.paging
 
 import androidx.paging.PagingSource
 import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.common.model.Source
-import com.faizal.newsapp.common.wrapped.ListResponse
-import com.faizal.newsapp.features.home.home.data.service.NewsApi
+import com.faizal.newsapp.domain.model.Source
+import com.faizal.newsapp.data.remote.wrapped.ListResponse
+import com.faizal.newsapp.data.remote.NewsApi
 import com.faizal.newsapp.features.home.home.data.source.NewsPagingDataSource
 import io.mockk.coEvery
 import io.mockk.mockk

@@ -12,7 +12,7 @@ import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.common.model.Source
+import com.faizal.newsapp.domain.model.Source
 import com.faizal.newsapp.features.home.home.ui.home.HomeScreen
 import com.faizal.newsapp.features.splash.ui.MainActivity
 import dagger.hilt.android.testing.HiltAndroidTest

@@ -2,9 +2,8 @@ package com.faizal.newsapp.viewmodel
 
 import androidx.paging.PagingData
 import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.common.model.Source
+import com.faizal.newsapp.domain.model.Source
 import com.faizal.newsapp.helper.MainDispatcherRule
-import com.faizal.newsapp.features.home.home.domain.usecase.NewsUseCase
 import com.faizal.newsapp.features.home.home.viewmodel.home.HomeViewModel
 import io.mockk.every
 import io.mockk.mockk

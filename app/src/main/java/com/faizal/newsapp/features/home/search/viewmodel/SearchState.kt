@@ -1,7 +1,7 @@
 package com.faizal.newsapp.features.home.search.viewmodel
 
 import androidx.paging.PagingData
-import com.faizal.newsapp.common.model.Article
+import com.faizal.newsapp.domain.model.Article
 import kotlinx.coroutines.flow.Flow
 
 data class SearchState(

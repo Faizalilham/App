@@ -1,13 +1,5 @@
 package com.faizal.newsapp.common.utils
 
-sealed class DataState<T> {
-
-    data class Loading<T>(val isLoading: Boolean) : DataState<T>()
-
-    data class Success<T>(val data: T) : DataState<T>()
-
-    data class Response<T>(val uiComponent: UIComponent, val error: Exception?=null) : DataState<T>()
-}
 
 sealed class UIComponent {
 
