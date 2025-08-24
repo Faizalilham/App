@@ -5,17 +5,21 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
+import com.faizal.newsapp.UIKit.EmptyScreen
+import com.faizal.newsapp.features.common.ConnectionAware
+import com.faizal.newsapp.features.common.WebViewContent
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun ProfileScreen() {
-    val githubUrl = "https://github.com/Faizalilham"
+    val myProfile = "https://github.com/Faizalilham"
 
-    AndroidView(factory = { context ->
-        WebView(context).apply {
-            webViewClient = WebViewClient()
-            settings.javaScriptEnabled = true
-            loadUrl(githubUrl)
+    ConnectionAware(
+        onConnected = {
+            WebViewContent(url = myProfile)
+        },
+        onDisconnected = {
+            EmptyScreen()
         }
-    })
+    )
 }
