@@ -1,7 +1,7 @@
 package com.faizal.newsapp.features.home.home.viewmodel.detail
 
 
-import com.faizal.newsapp.domain.model.Article
+import com.faizal.core.domain.model.Article
 
 sealed class DetailEvent {
 

@@ -25,10 +25,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
+import com.faizal.core.domain.model.Article
 import com.faizal.newsapp.R
 import com.faizal.newsapp.UIKit.SearchBar
-import com.faizal.newsapp.common.utils.UIComponent
-import com.faizal.newsapp.domain.model.Article
+import com.faizal.newsapp.utils.UIComponent
 import com.faizal.newsapp.features.common.ArticlesList
 import com.faizal.newsapp.features.home.home.viewmodel.home.HomeEvent
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1

@@ -26,10 +26,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.model.Source
 import com.faizal.newsapp.R
-import com.faizal.newsapp.common.utils.formatDateTimeLegacy
-import com.faizal.newsapp.domain.model.Article
-import com.faizal.newsapp.domain.model.Source
+import com.faizal.newsapp.utils.formatDateTimeLegacy
 import com.faizal.newsapp.ui.theme.Dimens.ArticleCardSize
 import com.faizal.newsapp.ui.theme.Dimens.ExtraSmallPadding
 import com.faizal.newsapp.ui.theme.Dimens.ExtraSmallPadding2

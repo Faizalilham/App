@@ -1,7 +1,9 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.hilt.android) // ADD THIS LINE
     kotlin("kapt")
     id("kotlin-kapt")
     id("kotlin-parcelize")
@@ -57,6 +59,8 @@ android {
 }
 
 dependencies {
+    // Add core module dependency
+    implementation(project(":core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -74,47 +78,24 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
+
     //Splash Api
     implementation(libs.androidx.core.splashscreen)
 
     //Compose Navigation
     implementation(libs.androidx.navigation.compose)
 
-    //Dagger Hilt
-    implementation(libs.hilt.android)
-//    kapt("com.google.dagger:hilt-compiler:2.45")
-    implementation(libs.androidx.hilt.navigation.compose)
-
-
-    //Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-
     //Coil
     implementation(libs.coil.compose)
-
-    //Datastore
-    implementation(libs.androidx.datastore.preferences)
 
     //Compose Foundation
     implementation(libs.androidx.foundation)
 
     //Accompanist
     implementation(libs.accompanist.systemuicontroller)
-
-    //Paging 3
-    implementation(libs.androidx.paging.runtime)
-    implementation(libs.androidx.paging.compose)
-
-    kapt(libs.hilt.compiler)
-
-
-    //Room
-    implementation(libs.androidx.room.runtime)
-//    kapt("androidx.room:room-compiler:2.5.2")
-    implementation(libs.androidx.room.paging)
-    implementation(libs.androidx.room.ktx)
-    kapt(libs.room.compiler)
 
     // Unit Testing
     testImplementation(libs.junit)
@@ -133,4 +114,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 
+    //Paging 3
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
 }

@@ -19,8 +19,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.faizal.core.domain.model.BottomNavigationItem
 import com.faizal.newsapp.R
-import com.faizal.newsapp.domain.model.BottomNavigationItem
 import com.faizal.newsapp.ui.theme.Dimens.ExtraSmallPadding2
 import com.faizal.newsapp.ui.theme.Dimens.IconSize
 import com.faizal.newsapp.ui.theme.NewsAppTheme

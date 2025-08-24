@@ -25,7 +25,8 @@ fun DetailTopBar(
     onShareClick: () -> Unit,
     onBookMarkClick: () -> Unit,
     onBackClick: () -> Unit,
-    isFavorite: Boolean = false
+    isFavorite: Boolean = false,
+    showBookmark: Boolean = true // handle kalo user click dari search
 ) {
 
     TopAppBar(
@@ -45,7 +46,21 @@ fun DetailTopBar(
             }
         },
         actions = {
-
+            if (showBookmark) {
+                IconButton(onClick = onBookMarkClick) {
+                    if(isFavorite){
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_bookmark_filled),
+                            contentDescription = null
+                        )
+                    }else{
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_bookmark),
+                            contentDescription = null
+                        )
+                    }
+                }
+            }
             IconButton(onClick = onBookMarkClick) {
                 if(isFavorite){
                     Icon(

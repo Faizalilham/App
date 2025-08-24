@@ -1,7 +1,6 @@
 package com.faizal.newsapp.features.home.home.ui.detail
 
 import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,13 +22,13 @@ import androidx.compose.ui.res.colorResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.faizal.newsapp.R
-import com.faizal.newsapp.common.utils.UIComponent
-import com.faizal.newsapp.domain.model.Article
+import com.faizal.newsapp.utils.UIComponent
 import com.faizal.newsapp.features.home.home.ui.detail.components.DetailTopBar
 import com.faizal.newsapp.features.home.home.viewmodel.detail.DetailEvent
 import com.faizal.newsapp.ui.theme.Dimens.ArticleImageHeight
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
 import androidx.core.net.toUri
+import com.faizal.core.domain.model.Article
 
 @Composable
 fun DetailScreen(
@@ -37,7 +36,8 @@ fun DetailScreen(
     event: (DetailEvent) -> Unit,
     sideEffect: UIComponent?,
     navigateUp: () -> Unit,
-    isFavorite : Boolean = false
+    isFavorite : Boolean = false,
+    showBookmark : Boolean = true
 ) {
     val context = LocalContext.current
 
@@ -80,7 +80,8 @@ fun DetailScreen(
                 event(DetailEvent.UpsertDeleteArticle(article))
             },
             onBackClick = navigateUp,
-            isFavorite = isFavorite
+            isFavorite = isFavorite,
+            showBookmark = showBookmark
         )
 
         LazyColumn(

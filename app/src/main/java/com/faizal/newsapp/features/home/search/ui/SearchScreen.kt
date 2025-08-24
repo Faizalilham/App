@@ -13,8 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.faizal.core.domain.model.Article
 import com.faizal.newsapp.UIKit.SearchBar
-import com.faizal.newsapp.domain.model.Article
 import com.faizal.newsapp.features.common.ArticlesList
 import com.faizal.newsapp.features.home.search.viewmodel.SearchEvent
 import com.faizal.newsapp.features.home.search.viewmodel.SearchState
@@ -50,6 +50,8 @@ fun SearchScreen(
             delay(300)
             if (searchQuery.isNotBlank()) {
                 event(SearchEvent.SearchNews)
+            }else{
+                event(SearchEvent.ClearSearch)
             }
         }
         Spacer(modifier = Modifier.height(MediumPadding1))

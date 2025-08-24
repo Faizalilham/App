@@ -1,5 +1,6 @@
 package com.faizal.newsapp.features.common
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.faizal.core.domain.model.Article
 import com.faizal.newsapp.UIKit.EmptyScreen
-import com.faizal.newsapp.domain.model.Article
 import com.faizal.newsapp.ui.theme.Dimens.ExtraSmallPadding2
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
 
@@ -91,11 +92,13 @@ fun handlePagingResult(articles: LazyPagingItems<Article>): Boolean {
         }
 
         error != null -> {
+            Log.d("PagingDebug", "NotLoading with 0 items, showing EmptyScreen")
             EmptyScreen(error = error)
             false
         }
 
         loadState.refresh is LoadState.NotLoading && articles.itemCount == 0 -> {
+            Log.d("PagingDebug", "NotLoading with 0 items, showing EmptyScreen")
             EmptyScreen()
             false
         }

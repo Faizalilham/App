@@ -1,14 +1,15 @@
 package com.faizal.newsapp.features.home.home.viewmodel.detail
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.faizal.newsapp.common.utils.UIComponent
-import com.faizal.newsapp.domain.model.Article
-import com.faizal.newsapp.domain.usecases.news.IsArticleFavorite
-import com.faizal.newsapp.domain.usecases.news.SetFavoriteArticles
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.usecases.news.IsArticleFavorite
+import com.faizal.core.domain.usecases.news.SetFavoriteArticles
+import com.faizal.newsapp.utils.UIComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,6 +29,9 @@ class DetailViewModel @Inject constructor(
     fun onEvent(event: DetailEvent) {
         when (event) {
             is DetailEvent.UpsertDeleteArticle -> {
+                Log.d("DetailViewModel", "UpsertDeleteArticle event triggered")
+                Log.d("DetailViewModel", "Article title: ${event.article.title}")
+                Log.d("DetailViewModel", "Article URL: ${event.article.url}")
                 toggleFavorite(article = event.article)
             }
             is DetailEvent.RemoveSideEffect -> {

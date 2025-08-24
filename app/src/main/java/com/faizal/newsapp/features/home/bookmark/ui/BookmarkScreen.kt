@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import com.faizal.core.domain.model.Article
 import com.faizal.newsapp.R
 import com.faizal.newsapp.features.home.bookmark.viewmodel.BookmarkState
-import com.faizal.newsapp.domain.model.Article
 import com.faizal.newsapp.features.common.ArticlesList
 import com.faizal.newsapp.ui.theme.Dimens.MediumPadding1
 

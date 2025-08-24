@@ -21,9 +21,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.model.BottomNavigationItem
 import com.faizal.newsapp.R
-import com.faizal.newsapp.domain.model.Article
-import com.faizal.newsapp.domain.model.BottomNavigationItem
 import com.faizal.newsapp.features.home.bookmark.ui.BookmarkScreen
 import com.faizal.newsapp.features.home.bookmark.viewmodel.BookmarkViewModel
 import com.faizal.newsapp.features.home.home.ui.detail.DetailScreen
@@ -116,7 +116,8 @@ fun NewsNavigator() {
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = article
+                            article = article,
+                            source = "home"
                         )
                     }
                 )
@@ -131,13 +132,15 @@ fun NewsNavigator() {
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = article
+                            article = article,
+                            source = "search"
                         )
                     }
                 )
             }
             composable(route = Route.DetailsScreen.route) {
                 val viewModel: DetailViewModel = hiltViewModel()
+                val source = navController.previousBackStackEntry?.savedStateHandle?.get<String>("source") ?: "home"
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
                         LaunchedEffect(article) {
@@ -148,7 +151,8 @@ fun NewsNavigator() {
                             event = viewModel::onEvent,
                             navigateUp = { navController.navigateUp() },
                             sideEffect = viewModel.sideEffect,
-                            isFavorite = viewModel.state.isFavorite
+                            isFavorite = viewModel.state.isFavorite,
+                            showBookmark = source != "search"
                         )
                     }
 
@@ -162,7 +166,8 @@ fun NewsNavigator() {
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = article
+                            article = article,
+                            source = "bookmark"
                         )
                     }
                 )
@@ -198,8 +203,9 @@ private fun navigateToTab(navController: NavController, route: String) {
     }
 }
 
-private fun navigateToDetails(navController: NavController, article: Article) {
+private fun navigateToDetails(navController: NavController, article: Article,source : String) {
     navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
+    navController.currentBackStackEntry?.savedStateHandle?.set("source", source)
     navController.navigate(
         route = Route.DetailsScreen.route
     )

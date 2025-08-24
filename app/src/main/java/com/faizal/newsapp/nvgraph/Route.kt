@@ -1,10 +1,9 @@
 package com.faizal.newsapp.nvgraph
 
-import androidx.navigation.NamedNavArgument
+
 
 sealed class Route(
     val route: String,
-    val arguments: List<NamedNavArgument> = emptyList()
 ) {
     data object OnBoardingScreen : Route(route = "onBoardingScreen")
 
@@ -13,6 +12,7 @@ sealed class Route(
     data object SearchScreen : Route(route = "searchScreen")
 
     data object BookmarkScreen : Route(route = "bookMarkScreen")
+
     data object ProfileScreen : Route(route = "profileScreen")
 
     data object DetailsScreen : Route(route = "detailsScreen")

@@ -9,12 +9,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.faizal.newsapp.common.utils.NetworkConnectionManager
-import com.faizal.newsapp.common.utils.UIComponent
-import com.faizal.newsapp.domain.model.Article
-import com.faizal.newsapp.domain.usecases.news.GetNews
-import com.faizal.newsapp.domain.usecases.news.GetSavedArticles
-import com.faizal.newsapp.features.home.home.viewmodel.detail.DetailEvent
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.usecases.news.GetNews
+import com.faizal.core.domain.usecases.news.GetSavedArticles
+import com.faizal.core.utils.NetworkConnectionManager
+import com.faizal.newsapp.utils.UIComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

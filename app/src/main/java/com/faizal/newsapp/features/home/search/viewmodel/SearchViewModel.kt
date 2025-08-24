@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.faizal.newsapp.common.utils.NetworkConnectionManager
-import com.faizal.newsapp.domain.usecases.news.GetSavedArticles
-import com.faizal.newsapp.domain.usecases.news.SearchNews
+import com.faizal.core.domain.usecases.news.GetSavedArticles
+import com.faizal.core.domain.usecases.news.SearchNews
+import com.faizal.core.utils.NetworkConnectionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -40,9 +40,11 @@ class SearchViewModel @Inject constructor(
             is SearchEvent.UpdateSearchQuery -> {
                 _state.value = _state.value.copy(searchQuery = event.searchQuery)
             }
-
             is SearchEvent.SearchNews -> {
                 searchNews()
+            }
+            is SearchEvent.ClearSearch -> {
+                 _state.value = _state.value.copy(articles = null)
             }
         }
     }
@@ -67,7 +69,8 @@ class SearchViewModel @Inject constructor(
             val articles = offlineNews
                 .map { pagingData ->
                     pagingData.filter { article ->
-                        article.title.contains(_state.value.searchQuery, ignoreCase = true)
+                        article.title.contains(_state.value.searchQuery, ignoreCase = true) &&
+                                !article.isFavorite
                     }
                 }
 
