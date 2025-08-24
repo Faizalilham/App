@@ -61,19 +61,6 @@ fun DetailTopBar(
                     }
                 }
             }
-            IconButton(onClick = onBookMarkClick) {
-                if(isFavorite){
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_bookmark_filled),
-                        contentDescription = null
-                    )
-                }else{
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_bookmark),
-                        contentDescription = null
-                    )
-                }
-            }
             IconButton(onClick = onShareClick) {
                 Icon(
                     imageVector = Icons.Default.Share,
