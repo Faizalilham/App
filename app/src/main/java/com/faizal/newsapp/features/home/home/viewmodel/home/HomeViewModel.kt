@@ -80,6 +80,4 @@ class HomeViewModel @Inject constructor(
                 offlineNews
             }
         }
-
-    val connectionStatus = isConnected.asLiveData()
 }
