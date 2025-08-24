@@ -6,7 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -22,7 +21,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -36,9 +34,10 @@ class HomeViewModel @Inject constructor(
     var sideEffect by mutableStateOf<UIComponent?>(null)
         private set
 
-    private var _state = mutableStateOf(HomeState())
+    var state = mutableStateOf(HomeState())
+        private set
 
-    fun onEvent(event: HomeEvent) {
+    fun onEvent(event : HomeEvent){
         when(event){
             is HomeEvent.RemoveSideEffect -> {
                 sideEffect = null
@@ -46,20 +45,21 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private val isConnected = networkConnectionManager.observeNetworkConnection()
+    val isConnected = networkConnectionManager.observeNetworkConnection()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = networkConnectionManager.isConnected()
         )
 
-    private val onlineNews = getNewsUseCase(
-        source = listOf("bbc-news", "abc-news", "al-jazeera-english")
+    val onlineNews = getNewsUseCase(
+        source = listOf("bbc-news","abc-news","al-jazeera-english")
     ).cachedIn(viewModelScope)
 
     private val offlineNews = getSavedArticles()
         .map { articles ->
-            PagingData.from(articles.distinctBy { it.url })
+            articles.distinctBy { it.url }
+            PagingData.from(articles)
         }
         .distinctUntilChanged()
         .cachedIn(viewModelScope)
@@ -67,15 +67,10 @@ class HomeViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     val news: Flow<PagingData<Article>> = isConnected
         .flatMapLatest { connected ->
-            _state.value = _state.value.copy(isConnected = connected)
-
             if (connected) {
-                _state.value = _state.value.copy(isLoading = true)
-                onlineNews.onEach {
-                    _state.value = _state.value.copy(isLoading = false)
-                }
+                onlineNews
             } else {
-                Log.d("TESTED", "Load From DB")
+                Log.d("TESTED","Load From DB")
                 sideEffect = UIComponent.Toast("Loaded from local database")
                 offlineNews
             }
