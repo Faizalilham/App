@@ -1,10 +1,10 @@
 package com.faizal.newsapp.repository
 
 import androidx.paging.PagingData
-import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.domain.model.Source
-import com.faizal.newsapp.domain.repository.NewsRepository
-import com.faizal.newsapp.domain.usecases.news.GetNews
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.model.Source
+import com.faizal.core.domain.repository.NewsRepository
+import com.faizal.core.domain.usecases.news.GetNews
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

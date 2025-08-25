@@ -1,26 +1,17 @@
 package com.faizal.newsapp.home
 
-import androidx.compose.ui.test.ExperimentalTestApi
+
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.domain.model.Source
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.model.Source
 import com.faizal.newsapp.features.home.home.ui.home.HomeScreen
-import com.faizal.newsapp.features.splash.ui.MainActivity
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runTest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -45,7 +36,9 @@ class HomeScreenTest {
             HomeScreen(
                 articles = fakePagingData().collectAsLazyPagingItems(),
                 navigateToSearch = {},
-                navigateToDetails = {}
+                navigateToDetails = {},
+                event = {},
+                sideEffect = null
             )
         }
         composeTestRule.onNodeWithTag("SearchBar").assertIsDisplayed()

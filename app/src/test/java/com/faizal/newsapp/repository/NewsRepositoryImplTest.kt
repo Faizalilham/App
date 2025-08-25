@@ -1,12 +1,14 @@
 package com.faizal.newsapp.repository
 
 
-import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.domain.model.Source
+
+import com.faizal.core.data.local.NewsDao
 import com.faizal.core.data.remote.wrapped.ListResponse
-import com.faizal.newsapp.features.home.home.data.repository.NewsRepositoryImpl
 import com.faizal.core.data.remote.NewsApi
-import com.faizal.newsapp.domain.repository.NewsRepository
+import com.faizal.core.data.repository.NewsRepositoryImpl
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.model.Source
+import com.faizal.core.domain.repository.NewsRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,12 +21,14 @@ import org.junit.Test
 class NewsRepositoryImplTest {
 
     private lateinit var newsApi: NewsApi
+    private lateinit var newsDao: NewsDao
     private lateinit var repository: NewsRepository
 
     @Before
     fun setUp() {
         newsApi = mockk()
-        repository = NewsRepositoryImpl(newsApi)
+        newsDao = mockk()
+        repository = NewsRepositoryImpl(newsApi,newsDao)
     }
 
     @Test

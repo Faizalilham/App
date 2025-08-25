@@ -1,11 +1,12 @@
 package com.faizal.newsapp.paging
 
 import androidx.paging.PagingSource
-import com.faizal.newsapp.common.model.Article
-import com.faizal.newsapp.domain.model.Source
+import com.faizal.core.data.local.NewsDao
 import com.faizal.core.data.remote.wrapped.ListResponse
 import com.faizal.core.data.remote.NewsApi
-import com.faizal.newsapp.features.home.home.data.source.NewsPagingDataSource
+import com.faizal.core.data.remote.NewsPagingSource
+import com.faizal.core.domain.model.Article
+import com.faizal.core.domain.model.Source
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,12 +22,14 @@ import java.io.IOException
 class NewsPagingDataSourceTest {
 
     private lateinit var newsApi: NewsApi
-    private lateinit var pagingSource: NewsPagingDataSource
+    private lateinit var pagingSource: NewsPagingSource
+    private lateinit var newsDao: NewsDao
 
     @Before
     fun setUp() {
         newsApi = mockk()
-        pagingSource = NewsPagingDataSource(newsApi, "bbc-news")
+        newsDao = mockk()
+        pagingSource = NewsPagingSource(newsApi,newsDao, "bbc-news")
     }
 
     @Test
